@@ -1,11 +1,11 @@
 package by.ustsinovich.taskmanagementsystem.service.impl;
 
-import by.ustsinovich.taskmanagementsystem.dto.UserDto;
 import by.ustsinovich.taskmanagementsystem.dto.request.LoginRequest;
 import by.ustsinovich.taskmanagementsystem.dto.request.RefreshRequest;
 import by.ustsinovich.taskmanagementsystem.dto.request.RegisterRequest;
 import by.ustsinovich.taskmanagementsystem.dto.response.AuthResponse;
 import by.ustsinovich.taskmanagementsystem.entity.User;
+import by.ustsinovich.taskmanagementsystem.exception.InvalidJwtTokenException;
 import by.ustsinovich.taskmanagementsystem.service.AuthService;
 import by.ustsinovich.taskmanagementsystem.service.JwtService;
 import by.ustsinovich.taskmanagementsystem.service.TokenService;
@@ -28,7 +28,7 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
 
     @Override
-    public UserDto register(RegisterRequest registerRequest) {
+    public User register(RegisterRequest registerRequest) {
         return userService.createUser(registerRequest);
     }
 
@@ -61,7 +61,7 @@ public class AuthServiceImpl implements AuthService {
         User user = userService.getUserByEmail(email);
 
         if (!jwtService.isValidRefreshToken(token, user)) {
-            throw null;
+            throw new InvalidJwtTokenException();
         }
 
         String accessToken = jwtService.generateAccessToken(user);
