@@ -6,6 +6,7 @@ import by.ustsinovich.taskmanagementsystem.dto.request.LoginRequest;
 import by.ustsinovich.taskmanagementsystem.dto.request.RefreshRequest;
 import by.ustsinovich.taskmanagementsystem.dto.request.RegisterRequest;
 import by.ustsinovich.taskmanagementsystem.dto.response.AuthResponse;
+import by.ustsinovich.taskmanagementsystem.mapper.UserMapper;
 import by.ustsinovich.taskmanagementsystem.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +19,11 @@ public class AuthControllerImpl implements AuthController {
 
     private final AuthService authService;
 
+    private final UserMapper userMapper;
+
     @Override
     public UserDto register(RegisterRequest registerRequest) {
-        return authService.register(registerRequest);
+        return userMapper.mapToDto(authService.register(registerRequest));
     }
 
     @Override
