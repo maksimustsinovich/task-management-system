@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 @Schema(description = "Comment data transfer object")
 public class CommentDto {
 
-    @Schema(description = "Unique identifier of the comment")
+    @Schema(description = "Unique identifier of the comment", accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
 
-    @Schema(description = "Date and time when the comment was created")
+    @Schema(description = "Date and time when the comment was created", accessMode = Schema.AccessMode.READ_ONLY)
     private LocalDateTime createdAt;
 
-    @Schema(description = "Date and time when the comment was last updated")
+    @Schema(description = "Date and time when the comment was last updated", accessMode = Schema.AccessMode.READ_ONLY)
     private LocalDateTime updatedAt;
 
     @NotBlank

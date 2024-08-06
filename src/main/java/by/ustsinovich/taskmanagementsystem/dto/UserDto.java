@@ -12,13 +12,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(description = "User data transfer object")
 public class UserDto {
 
-    @Schema(description = "Unique identifier of the user")
+    @Schema(description = "Unique identifier of the user", accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
 
-    @Schema(description = "Date and time when the user was created")
+    @Schema(description = "Date and time when the user was created", accessMode = Schema.AccessMode.READ_ONLY)
     private LocalDateTime createdAt;
 
-    @Schema(description = "Date and time when the user was last updated")
+    @Schema(description = "Date and time when the user was last updated", accessMode = Schema.AccessMode.READ_ONLY)
     private LocalDateTime updatedAt;
 
     @NotBlank

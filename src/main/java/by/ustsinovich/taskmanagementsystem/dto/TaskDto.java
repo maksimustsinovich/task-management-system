@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Schema(description = "Task data transfer object")
 public class TaskDto {
 
-    @Schema(description = "Unique identifier of the task")
+    @Schema(description = "Unique identifier of the task", accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
 
     @NotBlank
@@ -34,10 +34,10 @@ public class TaskDto {
     @Schema(description = "Status of the task")
     private String status;
 
-    @Schema(description = "Date and time when the task was created")
+    @Schema(description = "Date and time when the task was created", accessMode = Schema.AccessMode.READ_ONLY)
     private LocalDateTime createdAt;
 
-    @Schema(description = "Date and time when the task was last updated")
+    @Schema(description = "Date and time when the task was last updated", accessMode = Schema.AccessMode.READ_ONLY)
     private LocalDateTime updatedAt;
 
     @Schema(description = "User who initiated the task")
