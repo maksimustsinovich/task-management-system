@@ -28,7 +28,7 @@ public interface TaskController {
     TaskDto retrieveTaskById(@PathVariable Long id);
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') || @securityService.isTaskAuthor(authentication.principal, #id)")
+    @PreAuthorize("hasRole('ADMIN') || @securityService.isTaskInitiated(authentication.principal, #id)")
     TaskDto updateTask(@PathVariable Long id, @RequestBody TaskDto taskDto);
 
     @DeleteMapping("/{id}")
@@ -47,9 +47,13 @@ public interface TaskController {
     CommentDto createTaskComment(@PathVariable Long id, @RequestBody CommentDto commentDto);
 
     @PostMapping("/{id}/executor")
+    @PreAuthorize("hasRole('ADMIN') || @securityService.isTaskInitiated(authentication.principal, #id)")
     TaskDto setExecutors(@PathVariable Long id, @RequestParam Long executorId);
 
     @PostMapping("/{id}/status")
+    @PreAuthorize("hasRole('ADMIN') ||" +
+            " @securityService.isTaskInitiated(authentication.principal, #id) ||" +
+            " @securityService.isTaskExecuted(authentication.principal, #id)")
     TaskDto setStatus(@PathVariable Long id, @RequestParam TaskStatus taskStatus);
 
 }
