@@ -69,11 +69,9 @@ public class User implements UserDetails, Serializable {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "executed_id")
     )
-    @Transient
     private List<Task> executed;
 
     @OneToMany(mappedBy = "author")
-    @Transient
     private List<Comment> comments;
 
     @Override
