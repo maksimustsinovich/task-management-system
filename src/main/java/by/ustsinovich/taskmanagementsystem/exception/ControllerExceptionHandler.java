@@ -50,7 +50,10 @@ public class ControllerExceptionHandler {
     })
     @Operation(summary = "Handle runtime exception")
     public ErrorResponse handleRuntimeException(RuntimeException e) {
-        return new ErrorResponse("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return new ErrorResponse(
+                "Internal Server Error: " + e.getMessage(),
+                HttpStatus.INTERNAL_SERVER_ERROR.value()
+        );
     }
 
 }
