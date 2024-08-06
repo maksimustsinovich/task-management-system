@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class UserDto {
+public class CommentDto {
 
     private Long id;
 
@@ -13,14 +13,6 @@ public class UserDto {
 
     private LocalDateTime updatedAt;
 
-    private String firstName;
-
-    private String patronymic;
-
-    private String lastName;
-
-    private String email;
-
-    private String role;
+    private String content;
 
 }
