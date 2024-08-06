@@ -116,7 +116,7 @@ public class TaskServiceImpl implements TaskService {
         Pageable pageable = PageRequest.of(page, size, sort.getSort());
         Specification<Task> specification = TaskSpecification.filterBy(filter);
 
-        return taskRepository.findByExecutorsId(id, specification, pageable);
+        return taskRepository.findByExecutorId(id, specification, pageable);
     }
 
     @Override

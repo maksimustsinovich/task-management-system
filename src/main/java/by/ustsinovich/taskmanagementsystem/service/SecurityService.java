@@ -8,6 +8,8 @@ public interface SecurityService {
 
     boolean isCommentAuthor(User principal, Long commentId);
 
-    boolean isTaskAuthor(User principal, Long taskId);
+    boolean isTaskInitiated(User principal, Long taskId);
+
+    boolean isTaskExecuted(User principal, Long taskId);
 
 }

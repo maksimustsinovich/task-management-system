@@ -29,9 +29,15 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
-    public boolean isTaskAuthor(User principal, Long taskId) {
+    public boolean isTaskInitiated(User principal, Long taskId) {
         Task task = taskService.getTaskById(taskId);
         return task.getInitiator().equals(principal);
+    }
+
+    @Override
+    public boolean isTaskExecuted(User principal, Long taskId) {
+        Task task = taskService.getTaskById(taskId);
+        return task.getExecutor().equals(principal);
     }
 
 }
