@@ -1,5 +1,6 @@
 package by.ustsinovich.taskmanagementsystem.config;
 
+import by.ustsinovich.taskmanagementsystem.exception.InvalidJwtTokenException;
 import by.ustsinovich.taskmanagementsystem.service.TokenService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,7 +24,7 @@ public class CustomLogoutHandler implements LogoutHandler {
         String header = request.getHeader("Authorization");
 
         if (header == null || !header.startsWith("Bearer ")) {
-            throw null;
+            throw new InvalidJwtTokenException();
         }
 
         String token = header.substring(7);
