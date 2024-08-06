@@ -21,4 +21,6 @@ public class TaskDto {
 
     private LocalDateTime updatedAt;
 
+    UserDto initiator;
+
 }
