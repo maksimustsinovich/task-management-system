@@ -74,18 +74,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUserById(Long id) {
-        User user = userRepository
-                .findById(id)
-                .orElseThrow(() -> new UserNotFoundException(id));
+        User user = getUserById(id);
 
         userRepository.delete(user);
     }
 
     @Override
     public User updateUser(Long id, UserDto userDto) {
-        User user = userRepository
-                .findById(id)
-                .orElseThrow(() -> new UserNotFoundException(id));
+        User user = getUserById(id);
 
         user.setEmail(userDto.getEmail());
         user.setFirstName(userDto.getFirstName());
@@ -122,6 +118,19 @@ public class UserServiceImpl implements UserService {
         return userRepository
                 .findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(email));
+    }
+
+    @Override
+    public Task addTaskToExecute(Long executorId, Long taskId) {
+        User user = getUserById(executorId);
+
+        Task task = taskService.getTaskById(taskId);
+
+        user.getExecuted().add(task);
+
+        userRepository.save(user);
+
+        return task;
     }
 
 }

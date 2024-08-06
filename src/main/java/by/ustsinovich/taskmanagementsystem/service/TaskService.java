@@ -2,28 +2,31 @@ package by.ustsinovich.taskmanagementsystem.service;
 
 import by.ustsinovich.taskmanagementsystem.dto.CommentDto;
 import by.ustsinovich.taskmanagementsystem.dto.TaskDto;
+import by.ustsinovich.taskmanagementsystem.entity.Comment;
+import by.ustsinovich.taskmanagementsystem.entity.Task;
 import by.ustsinovich.taskmanagementsystem.enums.CommentSort;
 import by.ustsinovich.taskmanagementsystem.enums.TaskSort;
+import by.ustsinovich.taskmanagementsystem.enums.TaskStatus;
 import by.ustsinovich.taskmanagementsystem.filter.CommentFilter;
 import by.ustsinovich.taskmanagementsystem.filter.TaskFilter;
 import org.springframework.data.domain.Page;
 
 public interface TaskService {
 
-    Page<TaskDto> getAllTasks(
+    Page<Task> getAllTasks(
             Integer page,
             Integer size,
             TaskSort sort,
             TaskFilter filter
     );
 
-    TaskDto getTaskById(Long id);
+    Task getTaskById(Long id);
 
     void deleteTaskById(Long id);
 
-    TaskDto createTask(TaskDto taskDto);
+    Task createTask(TaskDto taskDto);
 
-    Page<CommentDto> getTaskComments(
+    Page<Comment> getTaskComments(
             Long id,
             Integer page,
             Integer size,
@@ -31,16 +34,26 @@ public interface TaskService {
             CommentFilter filter
     );
 
-    CommentDto createComment(Long id, CommentDto commentDto);
+    Comment createComment(Long id, CommentDto commentDto);
 
-    TaskDto updateTask(Long id, TaskDto taskDto);
+    Task updateTask(Long id, TaskDto taskDto);
 
-    Page<TaskDto> getExecutedTasksByUserId(
+    Page<Task> getExecutedTasksByUserId(
             Long id,
             Integer page,
             Integer size,
             TaskSort sort,
             TaskFilter filter
     );
+
+    Page<Task> getInitiatedTasksByUserId(
+            Long id,
+            Integer page,
+            Integer size,
+            TaskSort sort,
+            TaskFilter filter
+    );
+
+    Task setTaskStatus(Long id, TaskStatus taskStatus);
 
 }

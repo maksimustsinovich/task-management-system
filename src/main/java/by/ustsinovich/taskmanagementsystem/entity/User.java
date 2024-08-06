@@ -64,12 +64,7 @@ public class User implements UserDetails, Serializable {
     @OneToMany(mappedBy = "initiator")
     private List<Task> initiated;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_executed",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "executed_id")
-    )
+    @OneToMany(mappedBy = "executor")
     private List<Task> executed;
 
     @OneToMany(mappedBy = "author")
@@ -87,9 +82,16 @@ public class User implements UserDetails, Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
         User user = (User) o;
+
         return id.equals(user.id);
     }
 

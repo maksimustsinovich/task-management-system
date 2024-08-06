@@ -42,21 +42,29 @@ public class Task implements Serializable {
 
     private TaskPriority priority;
 
-    @OneToMany(mappedBy = "task")
+    @OneToMany(mappedBy = "task", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     @ManyToOne
     @JoinColumn(name = "initiator_id", referencedColumnName = "id")
     private User initiator;
 
-    @ManyToMany(mappedBy = "executed")
-    private List<User> executors;
+    @ManyToOne
+    @JoinColumn(name = "executor_id", referencedColumnName = "id")
+    private User executor;
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
         Task task = (Task) o;
+
         return id.equals(task.id);
     }
 

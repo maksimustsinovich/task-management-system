@@ -4,6 +4,7 @@ import by.ustsinovich.taskmanagementsystem.dto.CommentDto;
 import by.ustsinovich.taskmanagementsystem.dto.TaskDto;
 import by.ustsinovich.taskmanagementsystem.enums.CommentSort;
 import by.ustsinovich.taskmanagementsystem.enums.TaskSort;
+import by.ustsinovich.taskmanagementsystem.enums.TaskStatus;
 import by.ustsinovich.taskmanagementsystem.filter.CommentFilter;
 import by.ustsinovich.taskmanagementsystem.filter.TaskFilter;
 import org.springframework.data.domain.Page;
@@ -19,7 +20,7 @@ public interface TaskController {
     Page<TaskDto> retrieveAllTasks(
             @RequestParam(required = false, defaultValue = "0") Integer page,
             @RequestParam(required = false, defaultValue = "20") Integer size,
-            @RequestParam(required = false) TaskSort sort,
+            @RequestParam(required = false, defaultValue = "ID_ASC") TaskSort sort,
             @RequestParam(required = false) TaskFilter filter
     );
 
@@ -44,5 +45,11 @@ public interface TaskController {
 
     @PostMapping("/{id}/comments")
     CommentDto createTaskComment(@PathVariable Long id, @RequestBody CommentDto commentDto);
+
+    @PostMapping("/{id}/executor")
+    TaskDto setExecutors(@PathVariable Long id, @RequestParam Long executorId);
+
+    @PostMapping("/{id}/status")
+    TaskDto setStatus(@PathVariable Long id, @RequestParam TaskStatus taskStatus);
 
 }

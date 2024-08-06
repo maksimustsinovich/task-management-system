@@ -1,19 +1,15 @@
 package by.ustsinovich.taskmanagementsystem.repository;
 
-import by.ustsinovich.taskmanagementsystem.entity.User;
+import by.ustsinovich.taskmanagementsystem.entity.Comment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    Page<User> findAll(Specification<User> specification, Pageable pageable);
-
-    Optional<User> findByEmail(String email);
+    Page<Comment> findByTaskId(Long id, Specification<Comment> specification, Pageable pageable);
 
 }

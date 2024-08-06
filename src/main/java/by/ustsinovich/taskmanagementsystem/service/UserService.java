@@ -45,4 +45,6 @@ public interface UserService {
 
     User getUserByEmail(String email);
 
+    Task addTaskToExecute(Long executorId, Long id);
+
 }

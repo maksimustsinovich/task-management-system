@@ -2,12 +2,14 @@ package by.ustsinovich.taskmanagementsystem.service.impl;
 
 import by.ustsinovich.taskmanagementsystem.entity.Token;
 import by.ustsinovich.taskmanagementsystem.entity.User;
+import by.ustsinovich.taskmanagementsystem.exception.InvalidJwtTokenException;
 import by.ustsinovich.taskmanagementsystem.repository.TokenRepository;
 import by.ustsinovich.taskmanagementsystem.service.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -41,14 +43,17 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public void logout(String token) {
-        tokenRepository
-                .findByAccessToken(token)
-                .map(stored -> {
-                    stored.setLoggedOut(true);
+        Optional<Token> optionalToken = tokenRepository
+                .findByAccessToken(token);
 
-                    return tokenRepository.save(stored);
-                })
-                .orElseThrow(() -> null);
+        if (optionalToken.isEmpty()) {
+            throw new InvalidJwtTokenException();
+        }
+
+        Token stored = optionalToken.get();
+
+        stored.setLoggedOut(true);
+        tokenRepository.save(stored);
     }
 
     @Override
