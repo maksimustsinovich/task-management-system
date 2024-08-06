@@ -1,8 +1,8 @@
 package by.ustsinovich.taskmanagementsystem.service;
 
-import by.ustsinovich.taskmanagementsystem.dto.TaskDto;
 import by.ustsinovich.taskmanagementsystem.dto.UserDto;
 import by.ustsinovich.taskmanagementsystem.dto.request.RegisterRequest;
+import by.ustsinovich.taskmanagementsystem.entity.Task;
 import by.ustsinovich.taskmanagementsystem.entity.User;
 import by.ustsinovich.taskmanagementsystem.enums.TaskSort;
 import by.ustsinovich.taskmanagementsystem.enums.UserSort;
@@ -12,19 +12,36 @@ import org.springframework.data.domain.Page;
 
 public interface UserService {
 
-    UserDto createUser(RegisterRequest registerRequest);
+    User createUser(RegisterRequest registerRequest);
 
-    Page<UserDto> getAllUsers(Integer page, Integer size, UserSort sort, UserFilter filter);
+    Page<User> getAllUsers(
+            Integer page,
+            Integer size,
+            UserSort sort,
+            UserFilter filter
+    );
 
-    UserDto getUserById(Long id);
+    User getUserById(Long id);
 
     void deleteUserById(Long id);
 
-    UserDto updateUser(Long id, UserDto userDto);
+    User updateUser(Long id, UserDto userDto);
 
-    Page<TaskDto> getInitiatedTasks(Long id, Integer page, Integer size, TaskSort sort, TaskFilter filter);
+    Page<Task> getInitiatedTasks(
+            Long id,
+            Integer page,
+            Integer size,
+            TaskSort sort,
+            TaskFilter filter
+    );
 
-    Page<TaskDto> getExecutedTasks(Long id, Integer page, Integer size, TaskSort sort, TaskFilter filter);
+    Page<Task> getExecutedTasks(
+            Long id,
+            Integer page,
+            Integer size,
+            TaskSort sort,
+            TaskFilter filter
+    );
 
     User getUserByEmail(String email);
 

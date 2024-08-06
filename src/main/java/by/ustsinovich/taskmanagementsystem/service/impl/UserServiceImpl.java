@@ -1,8 +1,8 @@
 package by.ustsinovich.taskmanagementsystem.service.impl;
 
-import by.ustsinovich.taskmanagementsystem.dto.TaskDto;
 import by.ustsinovich.taskmanagementsystem.dto.UserDto;
 import by.ustsinovich.taskmanagementsystem.dto.request.RegisterRequest;
+import by.ustsinovich.taskmanagementsystem.entity.Task;
 import by.ustsinovich.taskmanagementsystem.entity.User;
 import by.ustsinovich.taskmanagementsystem.enums.TaskSort;
 import by.ustsinovich.taskmanagementsystem.enums.UserRole;
@@ -10,7 +10,6 @@ import by.ustsinovich.taskmanagementsystem.enums.UserSort;
 import by.ustsinovich.taskmanagementsystem.exception.UserNotFoundException;
 import by.ustsinovich.taskmanagementsystem.filter.TaskFilter;
 import by.ustsinovich.taskmanagementsystem.filter.UserFilter;
-import by.ustsinovich.taskmanagementsystem.mapper.UserMapper;
 import by.ustsinovich.taskmanagementsystem.repository.UserRepository;
 import by.ustsinovich.taskmanagementsystem.service.TaskService;
 import by.ustsinovich.taskmanagementsystem.service.UserService;
@@ -20,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,14 +29,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    private final UserMapper userMapper;
-
     private final PasswordEncoder passwordEncoder;
 
     private final TaskService taskService;
 
     @Override
-    public UserDto createUser(RegisterRequest registerRequest) {
+    public User createUser(RegisterRequest registerRequest) {
         User user = User
                 .builder()
                 .email(registerRequest.getEmail())
@@ -51,11 +49,11 @@ public class UserServiceImpl implements UserService {
                 .isAccountNonLocked(true)
                 .build();
 
-        return userMapper.mapToDto(userRepository.save(user));
+        return userRepository.save(user);
     }
 
     @Override
-    public Page<UserDto> getAllUsers(
+    public Page<User> getAllUsers(
             Integer page,
             Integer size,
             UserSort sort,
@@ -64,16 +62,13 @@ public class UserServiceImpl implements UserService {
         Pageable pageable = PageRequest.of(page, size, sort.getSort());
         Specification<User> specification = UserSpecification.filterBy(filter);
 
-        return userRepository
-                .findAll(specification, pageable)
-                .map(userMapper::mapToDto);
+        return userRepository.findAll(specification, pageable);
     }
 
     @Override
-    public UserDto getUserById(Long id) {
+    public User getUserById(Long id) {
         return userRepository
                 .findById(id)
-                .map(userMapper::mapToDto)
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
 
@@ -87,23 +82,32 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto updateUser(Long id, UserDto userDto) {
-        return null;
+    public User updateUser(Long id, UserDto userDto) {
+        User user = userRepository
+                .findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+
+        user.setEmail(userDto.getEmail());
+        user.setFirstName(userDto.getFirstName());
+        user.setPatronymic(userDto.getPatronymic());
+        user.setLastName(userDto.getLastName());
+
+        return userRepository.save(user);
     }
 
     @Override
-    public Page<TaskDto> getInitiatedTasks(
+    public Page<Task> getInitiatedTasks(
             Long id,
             Integer page,
             Integer size,
             TaskSort sort,
             TaskFilter filter
     ) {
-        return null;
+        return taskService.getInitiatedTasksByUserId(id, page, size, sort, filter);
     }
 
     @Override
-    public Page<TaskDto> getExecutedTasks(
+    public Page<Task> getExecutedTasks(
             Long id,
             Integer page,
             Integer size,
@@ -117,7 +121,7 @@ public class UserServiceImpl implements UserService {
     public User getUserByEmail(String email) {
         return userRepository
                 .findByEmail(email)
-                .orElseThrow(() -> null);
+                .orElseThrow(() -> new UsernameNotFoundException(email));
     }
 
 }
