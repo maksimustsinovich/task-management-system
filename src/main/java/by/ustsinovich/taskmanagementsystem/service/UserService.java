@@ -10,10 +10,28 @@ import by.ustsinovich.taskmanagementsystem.filter.TaskFilter;
 import by.ustsinovich.taskmanagementsystem.filter.UserFilter;
 import org.springframework.data.domain.Page;
 
+/**
+ * Interface for user services.
+ */
 public interface UserService {
 
+    /**
+     * Creates a new user.
+     *
+     * @param registerRequest registration request
+     * @return created user
+     */
     User createUser(RegisterRequest registerRequest);
 
+    /**
+     * Gets all users.
+     *
+     * @param page     page number
+     * @param size    page size
+     * @param sort    user sort
+     * @param filter  user filter
+     * @return page of users
+     */
     Page<User> getAllUsers(
             Integer page,
             Integer size,
@@ -21,12 +39,40 @@ public interface UserService {
             UserFilter filter
     );
 
+    /**
+     * Gets a user by ID.
+     *
+     * @param id user ID
+     * @return user
+     */
     User getUserById(Long id);
 
+    /**
+     * Deletes a user.
+     *
+     * @param id user ID
+     */
     void deleteUserById(Long id);
 
+    /**
+     * Updates a user.
+     *
+     * @param id      user ID
+     * @param userDto user data
+     * @return updated user
+     */
     User updateUser(Long id, UserDto userDto);
 
+    /**
+     * Gets initiated tasks for a user.
+     *
+     * @param id       user ID
+     * @param page     page number
+     * @param size    page size
+     * @param sort    task sort
+     * @param filter  task filter
+     * @return page of tasks
+     */
     Page<Task> getInitiatedTasks(
             Long id,
             Integer page,
@@ -35,6 +81,16 @@ public interface UserService {
             TaskFilter filter
     );
 
+    /**
+     * Gets executed tasks for a user.
+     *
+     * @param id       user ID
+     * @param page     page number
+     * @param size    page size
+     * @param sort    task sort
+     * @param filter  task filter
+     * @return page of tasks
+     */
     Page<Task> getExecutedTasks(
             Long id,
             Integer page,
@@ -43,8 +99,21 @@ public interface UserService {
             TaskFilter filter
     );
 
+    /**
+     * Gets a user by email.
+     *
+     * @param email user email
+     * @return user
+     */
     User getUserByEmail(String email);
 
+    /**
+     * Adds task to execute.
+     *
+     * @param executorId executor ID
+     * @param id task ID
+     * @return task
+     */
     Task addTaskToExecute(Long executorId, Long id);
 
 }

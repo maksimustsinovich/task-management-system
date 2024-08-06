@@ -20,16 +20,20 @@ public class Token implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, updatable = false)
     private Long id;
 
+    @Column(nullable = false)
     private String accessToken;
 
+    @Column(nullable = false)
     private String refreshToken;
 
+    @Column(nullable = false)
     private boolean isLoggedOut;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Override

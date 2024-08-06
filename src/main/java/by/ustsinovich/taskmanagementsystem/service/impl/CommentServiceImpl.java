@@ -31,7 +31,10 @@ public class CommentServiceImpl implements CommentService {
             CommentSort sort,
             CommentFilter filter
     ) {
-        return null;
+        Pageable pageable = PageRequest.of(page, size, sort.getSort());
+        Specification<Comment> specification = CommentSpecification.filterBy(filter);
+
+        return commentRepository.findAll(specification, pageable);
     }
 
     @Override
@@ -43,9 +46,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment updateCommentById(Long id, CommentDto commentDto) {
-        Comment comment = commentRepository
-                .findById(id)
-                .orElseThrow(() -> new CommentNotFoundException(id));
+        Comment comment = getCommentById(id);
 
         comment.setContent(commentDto.getContent());
 
@@ -54,9 +55,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void deleteCommentById(Long id) {
-        Comment comment = commentRepository
-                .findById(id)
-                .orElseThrow(() -> new CommentNotFoundException(id));
+        Comment comment = getCommentById(id);
 
         commentRepository.delete(comment);
     }

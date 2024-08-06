@@ -25,7 +25,8 @@ public class CommentControllerImpl implements CommentController {
             Integer page,
             Integer size,
             CommentSort sort,
-            CommentFilter filter) {
+            CommentFilter filter
+    ) {
         return commentService.getAllComments(page, size, sort, filter).map(commentMapper::mapToDto);
     }
 

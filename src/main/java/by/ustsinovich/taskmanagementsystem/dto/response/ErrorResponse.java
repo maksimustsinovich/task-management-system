@@ -6,12 +6,12 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class AuthResponse {
+public class ErrorResponse {
 
-    @Schema(description = "Access token")
-    private String accessToken;
+    @Schema(description = "Error message")
+    private String message;
 
-    @Schema(description = "Refresh token")
-    private String refreshToken;
+    @Schema(description = "HTTP status code")
+    private int statusCode;
 
 }

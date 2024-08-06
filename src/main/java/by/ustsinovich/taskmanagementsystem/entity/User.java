@@ -30,44 +30,58 @@ public class User implements UserDetails, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, updatable = false)
     private Long id;
 
     @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
+    @Column(nullable = false)
     private LocalDateTime updatedAt;
 
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
     private String firstName;
 
+    @Column(nullable = false)
     private String patronymic;
 
+    @Column(nullable = false)
     private String lastName;
 
+    @Column(nullable = false)
     private boolean isAccountNonExpired = true;
 
+    @Column(nullable = false)
     private boolean isAccountNonLocked = true;
 
+    @Column(nullable = false)
     private boolean isCredentialsNonExpired = true;
 
+    @Column(nullable = false)
     private boolean isEnabled = true;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private UserRole role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Token> tokens;
 
-    @OneToMany(mappedBy = "initiator")
+    @OneToMany(mappedBy = "initiator", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> initiated;
 
-    @OneToMany(mappedBy = "executor")
+    @OneToMany(mappedBy = "executor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> executed;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
 
     @Override
