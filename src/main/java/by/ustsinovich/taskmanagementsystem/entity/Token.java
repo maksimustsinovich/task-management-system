@@ -48,12 +48,16 @@ public class Token implements Serializable {
 
         Token token = (Token) o;
 
-        return id.equals(token.id);
+        return isLoggedOut == token.isLoggedOut &&
+                Objects.equals(id, token.id) &&
+                Objects.equals(accessToken, token.accessToken) &&
+                Objects.equals(refreshToken, token.refreshToken) &&
+                Objects.equals(user, token.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, accessToken, refreshToken, isLoggedOut, user);
     }
 
 }
