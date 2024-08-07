@@ -3,12 +3,14 @@ package by.ustsinovich.taskmanagementsystem.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Data
+@Builder
 @Schema(description = "User data transfer object")
 public class UserDto {
 
