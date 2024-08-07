@@ -11,10 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -73,16 +70,16 @@ public class User implements UserDetails, Serializable {
     private UserRole role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Token> tokens;
+    private List<Token> tokens = new ArrayList<>();
 
     @OneToMany(mappedBy = "initiator", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Task> initiated;
+    private List<Task> initiated = new ArrayList<>();
 
     @OneToMany(mappedBy = "executor", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Task> executed;
+    private List<Task> executed = new ArrayList<>();
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -106,12 +103,12 @@ public class User implements UserDetails, Serializable {
 
         User user = (User) o;
 
-        return id.equals(user.id);
+        return id != null && id.equals(user.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return id != null ? id.hashCode() : 0;
     }
 
 }
