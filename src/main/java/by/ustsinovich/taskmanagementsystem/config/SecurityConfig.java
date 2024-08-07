@@ -46,10 +46,6 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    private final CommentService commentService;
-
-    private final TaskService taskService;
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -119,7 +115,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityService securityService() {
+    public SecurityService securityService(CommentService commentService, TaskService taskService) {
         return new SecurityServiceImpl(commentService, taskService);
     }
 
