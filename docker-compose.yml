@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=${PROD_DB_USERNAME}
+      - POSTGRES_PASSWORD=${PROD_DB_PASSWORD}
+      - POSTGRES_DB=postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    command: ["postgres"]
+
+  app:
+    build: .
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - PROD_DB_USERNAME=${PROD_DB_USERNAME}
+      - PROD_DB_PASSWORD=${PROD_DB_PASSWORD}
+      - PROD_SECRET_KEY=${PROD_SECRET_KEY}
+      - PROD_DB_URL=${PROD_DB_URL}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  init-db:
+    image: postgres
+    depends_on:
+      - db
+    links:
+      - db
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: ["psql", "-U", "postgres", "-d", "postgres", "-h", "db", "-f", "/docker-entrypoint-initdb.d/init.sql"]
+
+volumes:
+  db-data:

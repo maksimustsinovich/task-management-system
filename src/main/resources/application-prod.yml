@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    username: ${PROD_DB_USERNAME}
+    driver-class-name: org.postgresql.Driver
+    url: ${PROD_DB_URL}
+    password: ${PROD_DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: none
+security:
+  jwt:
+    secret-key: ${PROD_SECRET_KEY}
+    access-expiration-time: 86400000
+    refresh-expiration-time: 604800000

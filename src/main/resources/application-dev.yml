@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    username: postgres
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+  jpa:
+    hibernate:
+      ddl-auto: create
+security:
+  jwt:
+    secret-key: xAZazWvKPfd1nQmQnBdtsjZztQ0rntugxrAlSrmJ9Z0=
+    access-expiration-time: 86400000
+    refresh-expiration-time: 604800000
