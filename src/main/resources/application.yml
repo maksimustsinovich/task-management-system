@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: task-management-system
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+springdoc:
+  swagger-ui:
+    operationsSorter: alpha
+    tagsSorter: alpha
+security:
+  jwt:
+    secret-key: xAZazWvKPfd1nQmQnBdtsjZztQ0rntugxrAlSrmJ9Z0=
+    access-expiration-time: 86400000
+    refresh-expiration-time: 604800000
