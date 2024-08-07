@@ -9,6 +9,7 @@ import by.ustsinovich.taskmanagementsystem.enums.TaskSort;
 import by.ustsinovich.taskmanagementsystem.enums.TaskStatus;
 import by.ustsinovich.taskmanagementsystem.filter.CommentFilter;
 import by.ustsinovich.taskmanagementsystem.filter.TaskFilter;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 
 /**
@@ -53,7 +54,7 @@ public interface TaskService {
      * @param taskDto task data
      * @return created task
      */
-    Task createTask(TaskDto taskDto);
+    Task createTask(@Valid TaskDto taskDto);
 
     /**
      * Gets comments for a task.
@@ -80,7 +81,7 @@ public interface TaskService {
      * @param commentDto comment data
      * @return created comment
      */
-    Comment createComment(Long id, CommentDto commentDto);
+    Comment createComment(Long id, @Valid CommentDto commentDto);
 
     /**
      * Updates a task.
@@ -89,7 +90,7 @@ public interface TaskService {
      * @param taskDto task data
      * @return updated task
      */
-    Task updateTask(Long id, TaskDto taskDto);
+    Task updateTask(Long id, @Valid TaskDto taskDto);
 
     /**
      * Gets executed tasks for a user.

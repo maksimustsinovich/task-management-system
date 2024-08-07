@@ -8,6 +8,7 @@ import by.ustsinovich.taskmanagementsystem.enums.TaskSort;
 import by.ustsinovich.taskmanagementsystem.enums.UserSort;
 import by.ustsinovich.taskmanagementsystem.filter.TaskFilter;
 import by.ustsinovich.taskmanagementsystem.filter.UserFilter;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 
 /**
@@ -21,7 +22,7 @@ public interface UserService {
      * @param registerRequest registration request
      * @return created user
      */
-    User createUser(RegisterRequest registerRequest);
+    User createUser(@Valid RegisterRequest registerRequest);
 
     /**
      * Gets all users.
@@ -61,7 +62,7 @@ public interface UserService {
      * @param userDto user data
      * @return updated user
      */
-    User updateUser(Long id, UserDto userDto);
+    User updateUser(Long id, @Valid UserDto userDto);
 
     /**
      * Gets initiated tasks for a user.

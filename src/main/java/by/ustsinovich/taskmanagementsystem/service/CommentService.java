@@ -5,6 +5,7 @@ import by.ustsinovich.taskmanagementsystem.entity.Comment;
 import by.ustsinovich.taskmanagementsystem.entity.Task;
 import by.ustsinovich.taskmanagementsystem.enums.CommentSort;
 import by.ustsinovich.taskmanagementsystem.filter.CommentFilter;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 
 /**
@@ -43,7 +44,7 @@ public interface CommentService {
      * @param commentDto comment data
      * @return updated comment
      */
-    Comment updateCommentById(Long id, CommentDto commentDto);
+    Comment updateCommentById(Long id, @Valid CommentDto commentDto);
 
     /**
      * Deletes a comment.
@@ -77,6 +78,6 @@ public interface CommentService {
      * @param commentDto comment data
      * @return created comment
      */
-    Comment createComment(Task task, CommentDto commentDto);
+    Comment createComment(Task task, @Valid CommentDto commentDto);
 
 }

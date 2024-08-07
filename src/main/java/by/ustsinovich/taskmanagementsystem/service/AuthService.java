@@ -5,6 +5,7 @@ import by.ustsinovich.taskmanagementsystem.dto.request.RefreshRequest;
 import by.ustsinovich.taskmanagementsystem.dto.request.RegisterRequest;
 import by.ustsinovich.taskmanagementsystem.dto.response.AuthResponse;
 import by.ustsinovich.taskmanagementsystem.entity.User;
+import jakarta.validation.Valid;
 
 /**
  * Interface for authentication and authorization services.
@@ -17,7 +18,7 @@ public interface AuthService {
      * @param registerRequest registration request
      * @return registered user
      */
-    User register(RegisterRequest registerRequest);
+    User register(@Valid RegisterRequest registerRequest);
 
     /**
      * Logs in a user.
@@ -25,7 +26,7 @@ public interface AuthService {
      * @param loginRequest login request
      * @return authentication response
      */
-    AuthResponse login(LoginRequest loginRequest);
+    AuthResponse login(@Valid LoginRequest loginRequest);
 
     /**
      * Refreshes an access token.
@@ -33,6 +34,6 @@ public interface AuthService {
      * @param refreshRequest refresh request
      * @return authentication response
      */
-    AuthResponse refresh(RefreshRequest refreshRequest);
+    AuthResponse refresh(@Valid RefreshRequest refreshRequest);
 
 }
