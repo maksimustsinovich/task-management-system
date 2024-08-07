@@ -5,6 +5,7 @@ import by.ustsinovich.taskmanagementsystem.entity.User;
 import by.ustsinovich.taskmanagementsystem.exception.InvalidJwtTokenException;
 import by.ustsinovich.taskmanagementsystem.repository.TokenRepository;
 import by.ustsinovich.taskmanagementsystem.service.TokenService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class TokenServiceImpl implements TokenService {
     private final TokenRepository tokenRepository;
 
     @Override
+    @Transactional
     public void saveToken(String accessToken, String refreshToken, User user) {
         Token token = Token
                 .builder()
@@ -31,6 +33,7 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
+    @Transactional
     public void revokeTokens(User user) {
         List<Token> validTokens = tokenRepository.findAllAccessTokensByUser(user);
 
@@ -42,6 +45,7 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
+    @Transactional
     public void logout(String token) {
         Optional<Token> optionalToken = tokenRepository
                 .findByAccessToken(token);

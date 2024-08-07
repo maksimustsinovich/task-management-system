@@ -10,6 +10,7 @@ import by.ustsinovich.taskmanagementsystem.filter.CommentFilter;
 import by.ustsinovich.taskmanagementsystem.repository.CommentRepository;
 import by.ustsinovich.taskmanagementsystem.service.CommentService;
 import by.ustsinovich.taskmanagementsystem.specification.CommentSpecification;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -45,6 +46,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional
     public Comment updateCommentById(Long id, CommentDto commentDto) {
         Comment comment = getCommentById(id);
 
@@ -54,6 +56,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional
     public void deleteCommentById(Long id) {
         Comment comment = getCommentById(id);
 
@@ -75,6 +78,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional
     public Comment createComment(Task task, CommentDto commentDto) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 

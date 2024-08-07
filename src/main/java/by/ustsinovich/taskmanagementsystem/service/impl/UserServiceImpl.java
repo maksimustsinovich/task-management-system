@@ -14,6 +14,7 @@ import by.ustsinovich.taskmanagementsystem.repository.UserRepository;
 import by.ustsinovich.taskmanagementsystem.service.TaskService;
 import by.ustsinovich.taskmanagementsystem.service.UserService;
 import by.ustsinovich.taskmanagementsystem.specification.UserSpecification;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,6 +35,7 @@ public class UserServiceImpl implements UserService {
     private final TaskService taskService;
 
     @Override
+    @Transactional
     public User createUser(RegisterRequest registerRequest) {
         User user = User
                 .builder()
@@ -73,6 +75,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void deleteUserById(Long id) {
         User user = getUserById(id);
 
@@ -80,6 +83,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User updateUser(Long id, UserDto userDto) {
         User user = getUserById(id);
 
@@ -121,6 +125,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public Task addTaskToExecute(Long executorId, Long taskId) {
         User user = getUserById(executorId);
 

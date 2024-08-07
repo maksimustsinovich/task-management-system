@@ -16,6 +16,7 @@ import by.ustsinovich.taskmanagementsystem.repository.TaskRepository;
 import by.ustsinovich.taskmanagementsystem.service.CommentService;
 import by.ustsinovich.taskmanagementsystem.service.TaskService;
 import by.ustsinovich.taskmanagementsystem.specification.TaskSpecification;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -53,6 +54,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @Transactional
     public void deleteTaskById(Long id) {
         Task task = getTaskById(id);
 
@@ -60,6 +62,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @Transactional
     public Task createTask(TaskDto taskDto) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -87,6 +90,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @Transactional
     public Comment createComment(Long id, CommentDto commentDto) {
         Task task = getTaskById(id);
 
@@ -94,6 +98,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @Transactional
     public Task updateTask(Long id, TaskDto taskDto) {
         Task task = getTaskById(id);
 
@@ -134,6 +139,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @Transactional
     public Task setTaskStatus(Long id, TaskStatus taskStatus) {
         Task task = getTaskById(id);
 
