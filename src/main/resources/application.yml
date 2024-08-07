@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: task-management-system
+  jpa:
+    open-in-view: false
+springdoc:
+  swagger-ui:
+    operationsSorter: alpha
+    tagsSorter: alpha
