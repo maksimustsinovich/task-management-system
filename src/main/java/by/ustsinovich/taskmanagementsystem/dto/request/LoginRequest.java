@@ -11,14 +11,14 @@ import lombok.Data;
 @AllArgsConstructor
 public class LoginRequest {
 
-    @NotBlank
-    @Email
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email")
     @Schema(name = "Email")
     private String email;
 
-    @NotBlank
-    @Size(min = 8, max = 255)
-    @Schema(name = "Password")
+    @NotBlank(message = "Password is required")
+    @Size(min = 8, max = 255, message = "Password size must be between 8 and 255 chars")
+    @Schema(description = "Password")
     private String password;
 
 }

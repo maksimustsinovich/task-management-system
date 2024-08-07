@@ -6,7 +6,6 @@ import by.ustsinovich.taskmanagementsystem.entity.Task;
 import by.ustsinovich.taskmanagementsystem.entity.User;
 import by.ustsinovich.taskmanagementsystem.enums.TaskSort;
 import by.ustsinovich.taskmanagementsystem.enums.UserSort;
-import by.ustsinovich.taskmanagementsystem.filter.TaskFilter;
 import by.ustsinovich.taskmanagementsystem.filter.UserFilter;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -71,15 +70,13 @@ public interface UserService {
      * @param page     page number
      * @param size    page size
      * @param sort    task sort
-     * @param filter  task filter
      * @return page of tasks
      */
     Page<Task> getInitiatedTasks(
             Long id,
             Integer page,
             Integer size,
-            TaskSort sort,
-            TaskFilter filter
+            TaskSort sort
     );
 
     /**
@@ -89,15 +86,13 @@ public interface UserService {
      * @param page     page number
      * @param size    page size
      * @param sort    task sort
-     * @param filter  task filter
      * @return page of tasks
      */
     Page<Task> getExecutedTasks(
             Long id,
             Integer page,
             Integer size,
-            TaskSort sort,
-            TaskFilter filter
+            TaskSort sort
     );
 
     /**

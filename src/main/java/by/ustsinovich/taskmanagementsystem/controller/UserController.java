@@ -4,7 +4,6 @@ import by.ustsinovich.taskmanagementsystem.dto.TaskDto;
 import by.ustsinovich.taskmanagementsystem.dto.UserDto;
 import by.ustsinovich.taskmanagementsystem.enums.TaskSort;
 import by.ustsinovich.taskmanagementsystem.enums.UserSort;
-import by.ustsinovich.taskmanagementsystem.filter.TaskFilter;
 import by.ustsinovich.taskmanagementsystem.filter.UserFilter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -47,7 +46,7 @@ public interface UserController {
             @RequestParam(required = false, defaultValue = "0") @Min(0) Integer page,
             @RequestParam(required = false, defaultValue = "20") @Min(1) Integer size,
             @RequestParam(required = false, defaultValue = "ID_ASC") UserSort sort,
-            @RequestParam(required = false) UserFilter filter
+            UserFilter filter
     );
 
     /**
@@ -110,7 +109,6 @@ public interface UserController {
      * @param page    The page number
      * @param size    The page size
      * @param sort    The sort order
-     * @param filter The filter criteria
      * @return The tasks
      */
     @GetMapping("/{id}/initiated")
@@ -123,14 +121,12 @@ public interface UserController {
     @Parameter(name = "page", description = "The page number")
     @Parameter(name = "size", description = "The page size")
     @Parameter(name = "sort", description = "The sort order")
-    @Parameter(name = "filter", description = "The filter criteria")
     @SecurityRequirement(name = "JWT")
     Page<TaskDto> retrieveInitiatedTasks(
             @PathVariable @Min(1) Long id,
             @RequestParam(required = false, defaultValue = "0") @Min(0) Integer page,
             @RequestParam(required = false, defaultValue = "20") @Min(1) Integer size,
-            @RequestParam(required = false, defaultValue = "ID_ASC") TaskSort sort,
-            @RequestParam(required = false) TaskFilter filter
+            @RequestParam(required = false, defaultValue = "ID_ASC") TaskSort sort
     );
 
     /**
@@ -140,7 +136,6 @@ public interface UserController {
      * @param page    The page number
      * @param size    The page size
      * @param sort    The sort order
-     * @param filter The filter criteria
      * @return The tasks
      */
     @GetMapping("/{id}/executed")
@@ -153,14 +148,12 @@ public interface UserController {
     @Parameter(name = "page", description = "The page number")
     @Parameter(name = "size", description = "The page size")
     @Parameter(name = "sort", description = "The sort order")
-    @Parameter(name = "filter", description = "The filter criteria")
     @SecurityRequirement(name = "JWT")
     Page<TaskDto> retrieveExecutedTasks(
             @PathVariable @Min(1) Long id,
             @RequestParam(required = false, defaultValue = "0") @Min(0) Integer page,
             @RequestParam(required = false, defaultValue = "20") @Min(1) Integer size,
-            @RequestParam(required = false, defaultValue = "ID_ASC") TaskSort sort,
-            @RequestParam(required = false) TaskFilter filter
+            @RequestParam(required = false, defaultValue = "ID_ASC") TaskSort sort
     );
 
 }

@@ -44,7 +44,7 @@ public interface CommentController {
             @RequestParam(required = false, defaultValue = "0") @Min(0) Integer page,
             @RequestParam(required = false, defaultValue = "20") @Min(1) Integer size,
             @RequestParam(required = false, defaultValue = "ID_ASC") CommentSort sort,
-            @RequestParam(required = false) CommentFilter filter
+            CommentFilter filter
     );
 
     /**

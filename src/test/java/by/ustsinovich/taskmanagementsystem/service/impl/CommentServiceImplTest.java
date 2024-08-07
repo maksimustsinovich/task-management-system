@@ -11,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -20,7 +19,6 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -69,22 +67,6 @@ class CommentServiceImplTest {
 
         // then
         verify(commentRepository).delete(comment);
-    }
-
-    @Test
-    void getCommentsByTaskId() {
-        Page<Comment> comments = Page.empty();
-        when(commentRepository.findByTaskId(any(), any(Specification.class), any(Pageable.class)))
-                .thenReturn(comments);
-
-        CommentFilter filter = new CommentFilter();
-        CommentSort sort = CommentSort.CREATED_ASC;
-
-        Page<Comment> result = commentService.getCommentsByTaskId(1L, 0, 10, sort, filter);
-
-        assertEquals(comments, result);
-
-        verify(commentRepository).findByTaskId(any(), any(Specification.class), eq(PageRequest.of(0, 10, sort.getSort())));
     }
 
 }

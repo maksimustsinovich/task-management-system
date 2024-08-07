@@ -60,15 +60,13 @@ public interface CommentService {
      * @param page     page number
      * @param size    page size
      * @param sort    comment sort
-     * @param filter  comment filter
      * @return page of comments
      */
     Page<Comment> getCommentsByTaskId(
             Long id,
             Integer page,
             Integer size,
-            CommentSort sort,
-            CommentFilter filter
+            CommentSort sort
     );
 
     /**

@@ -5,7 +5,6 @@ import by.ustsinovich.taskmanagementsystem.dto.TaskDto;
 import by.ustsinovich.taskmanagementsystem.dto.UserDto;
 import by.ustsinovich.taskmanagementsystem.enums.TaskSort;
 import by.ustsinovich.taskmanagementsystem.enums.UserSort;
-import by.ustsinovich.taskmanagementsystem.filter.TaskFilter;
 import by.ustsinovich.taskmanagementsystem.filter.UserFilter;
 import by.ustsinovich.taskmanagementsystem.mapper.TaskMapper;
 import by.ustsinovich.taskmanagementsystem.mapper.UserMapper;
@@ -58,11 +57,10 @@ public class UserControllerImpl implements UserController {
             Long id,
             Integer page,
             Integer size,
-            TaskSort sort,
-            TaskFilter filter
+            TaskSort sort
     ) {
         return userService
-                .getInitiatedTasks(id, page, size, sort, filter)
+                .getInitiatedTasks(id, page, size, sort)
                 .map(taskMapper::mapToDto);
     }
 
@@ -71,11 +69,10 @@ public class UserControllerImpl implements UserController {
             Long id,
             Integer page,
             Integer size,
-            TaskSort sort,
-            TaskFilter filter
+            TaskSort sort
     ) {
         return userService
-                .getExecutedTasks(id, page, size, sort, filter)
+                .getExecutedTasks(id, page, size, sort)
                 .map(taskMapper::mapToDto);
     }
 

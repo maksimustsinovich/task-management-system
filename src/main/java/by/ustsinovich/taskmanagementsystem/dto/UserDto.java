@@ -27,29 +27,27 @@ public class UserDto {
     @Schema(description = "Date and time when the user was last updated", accessMode = Schema.AccessMode.READ_ONLY)
     private LocalDateTime updatedAt;
 
-    @NotBlank
-    @Size(max = 255)
+    @NotBlank(message = "First name is required")
+    @Size(max = 255, message = "First name not exceed 255 chars")
     @Schema(description = "First name of the user")
     private String firstName;
 
-    @NotBlank
-    @Size(max = 255)
+    @NotBlank(message = "Patronymic is required")
+    @Size(max = 255, message = "Patronymic not exceed 255 chars")
     @Schema(description = "Patronymic of the user")
     private String patronymic;
 
-    @NotBlank
-    @Size(max = 255)
+    @NotBlank(message = "Last name is required")
+    @Size(max = 255, message = "Last name not exceed 255 chars")
     @Schema(description = "Last name of the user")
     private String lastName;
 
-    @NotBlank
-    @Email
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email")
     @Schema(description = "Email address of the user")
     private String email;
 
-    @NotBlank
-    @Size(max = 255)
-    @Schema(description = "Role of the user")
+    @Schema(description = "Role of the user", accessMode = Schema.AccessMode.READ_ONLY)
     private String role;
 
 }

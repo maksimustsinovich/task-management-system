@@ -12,8 +12,8 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     Page<Task> findAll(Specification<Task> specification, Pageable pageable);
 
-    Page<Task> findByExecutorId(Long id, Specification<Task> specification, Pageable pageable);
+    Page<Task> findByExecutorId(Long id, Pageable pageable);
 
-    Page<Task> findByInitiatorId(Long id, Specification<Task> specification, Pageable pageable);
+    Page<Task> findByInitiatorId(Long id, Pageable pageable);
 
 }

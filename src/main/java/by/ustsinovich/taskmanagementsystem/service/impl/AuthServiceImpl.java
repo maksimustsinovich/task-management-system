@@ -11,6 +11,8 @@ import by.ustsinovich.taskmanagementsystem.service.JwtService;
 import by.ustsinovich.taskmanagementsystem.service.TokenService;
 import by.ustsinovich.taskmanagementsystem.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -27,13 +29,17 @@ public class AuthServiceImpl implements AuthService {
 
     private final AuthenticationManager authenticationManager;
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthServiceImpl.class);
+
     @Override
     public User register(RegisterRequest registerRequest) {
+        logger.info("Registering user: {}", registerRequest.getEmail());
         return userService.createUser(registerRequest);
     }
 
     @Override
     public AuthResponse login(LoginRequest loginRequest) {
+        logger.info("Logging in user: {}", loginRequest.getEmail());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getEmail(),
@@ -49,6 +55,7 @@ public class AuthServiceImpl implements AuthService {
         tokenService.revokeTokens(user);
         tokenService.saveToken(accessToken, refreshToken, user);
 
+        logger.info("Login successful for user: {}", user.getEmail());
         return new AuthResponse(accessToken, refreshToken);
     }
 
@@ -70,6 +77,7 @@ public class AuthServiceImpl implements AuthService {
         tokenService.revokeTokens(user);
         tokenService.saveToken(accessToken, refreshToken, user);
 
+        logger.info("Token refresh successful for user: {}", user.getEmail());
         return new AuthResponse(accessToken, refreshToken);
     }
 

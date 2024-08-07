@@ -9,7 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class RefreshRequest {
 
-    @NotBlank
+    @NotBlank(message = "Refresh token is required")
     @Schema(name = "Refresh token")
     private String refreshToken;
 

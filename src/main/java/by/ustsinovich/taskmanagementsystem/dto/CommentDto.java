@@ -26,9 +26,12 @@ public class CommentDto {
     @Schema(description = "Date and time when the comment was last updated", accessMode = Schema.AccessMode.READ_ONLY)
     private LocalDateTime updatedAt;
 
-    @NotBlank
-    @Size(max = 255)
+    @NotBlank(message = "Content is required")
+    @Size(max = 255, message = "Content must not exceed 255 characters")
     @Schema(description = "Content of the comment")
     private String content;
+
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    private UserDto author;
 
 }

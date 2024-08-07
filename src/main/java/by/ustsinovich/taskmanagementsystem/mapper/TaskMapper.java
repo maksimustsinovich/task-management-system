@@ -5,7 +5,7 @@ import by.ustsinovich.taskmanagementsystem.entity.Task;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = {UserMapper.class})
+@Mapper(componentModel = "spring", uses = {UserMapper.class, CommentMapper.class})
 public interface TaskMapper {
 
     @Mapping(source = "initiator", target = "initiator")

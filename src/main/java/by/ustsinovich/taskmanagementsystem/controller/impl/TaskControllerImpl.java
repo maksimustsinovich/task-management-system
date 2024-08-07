@@ -6,7 +6,6 @@ import by.ustsinovich.taskmanagementsystem.dto.TaskDto;
 import by.ustsinovich.taskmanagementsystem.enums.CommentSort;
 import by.ustsinovich.taskmanagementsystem.enums.TaskSort;
 import by.ustsinovich.taskmanagementsystem.enums.TaskStatus;
-import by.ustsinovich.taskmanagementsystem.filter.CommentFilter;
 import by.ustsinovich.taskmanagementsystem.filter.TaskFilter;
 import by.ustsinovich.taskmanagementsystem.mapper.CommentMapper;
 import by.ustsinovich.taskmanagementsystem.mapper.TaskMapper;
@@ -67,11 +66,10 @@ public class TaskControllerImpl implements TaskController {
             Long id,
             Integer page,
             Integer size,
-            CommentSort sort,
-            CommentFilter filter
+            CommentSort sort
     ) {
         return taskService
-                .getTaskComments(id, page, size, sort, filter)
+                .getTaskComments(id, page, size, sort)
                 .map(commentMapper::mapToDto);
     }
 

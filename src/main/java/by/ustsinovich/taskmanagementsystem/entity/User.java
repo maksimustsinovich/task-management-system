@@ -17,6 +17,7 @@ import java.util.*;
 @Table(name = "users")
 @Getter
 @Setter
+@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -70,15 +71,19 @@ public class User implements UserDetails, Serializable {
     private UserRole role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<Token> tokens = new ArrayList<>();
 
     @OneToMany(mappedBy = "initiator", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<Task> initiated = new ArrayList<>();
 
     @OneToMany(mappedBy = "executor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<Task> executed = new ArrayList<>();
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<Comment> comments = new ArrayList<>();
 
     @Override

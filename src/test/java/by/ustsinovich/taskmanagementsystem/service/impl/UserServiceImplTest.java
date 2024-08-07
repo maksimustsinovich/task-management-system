@@ -1,15 +1,12 @@
 package by.ustsinovich.taskmanagementsystem.service.impl;
 
 import by.ustsinovich.taskmanagementsystem.dto.UserDto;
-import org.mockito.junit.jupiter.MockitoExtension;
-
 import by.ustsinovich.taskmanagementsystem.dto.request.RegisterRequest;
 import by.ustsinovich.taskmanagementsystem.entity.Task;
 import by.ustsinovich.taskmanagementsystem.entity.User;
 import by.ustsinovich.taskmanagementsystem.enums.TaskSort;
 import by.ustsinovich.taskmanagementsystem.enums.UserSort;
 import by.ustsinovich.taskmanagementsystem.exception.UserNotFoundException;
-import by.ustsinovich.taskmanagementsystem.filter.TaskFilter;
 import by.ustsinovich.taskmanagementsystem.filter.UserFilter;
 import by.ustsinovich.taskmanagementsystem.repository.UserRepository;
 import by.ustsinovich.taskmanagementsystem.service.TaskService;
@@ -17,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -141,25 +139,25 @@ class UserServiceImplTest {
     @Test
     void getInitiatedTasks() {
         Page<Task> page = Page.empty();
-        when(taskService.getInitiatedTasksByUserId(1L, 0, 10, TaskSort.ID_ASC, new TaskFilter()))
+        when(taskService.getInitiatedTasksByUserId(1L, 0, 10, TaskSort.ID_ASC))
                 .thenReturn(page);
 
-        Page<Task> result = userService.getInitiatedTasks(1L, 0, 10, TaskSort.ID_ASC, new TaskFilter());
+        Page<Task> result = userService.getInitiatedTasks(1L, 0, 10, TaskSort.ID_ASC);
 
         assertEquals(page, result);
-        verify(taskService).getInitiatedTasksByUserId(1L, 0, 10, TaskSort.ID_ASC, new TaskFilter());
+        verify(taskService).getInitiatedTasksByUserId(1L, 0, 10, TaskSort.ID_ASC);
     }
 
     @Test
     void getExecutedTasks() {
         Page<Task> page = Page.empty();
-        when(taskService.getExecutedTasksByUserId(1L, 0, 10, TaskSort.ID_ASC, new TaskFilter()))
+        when(taskService.getExecutedTasksByUserId(1L, 0, 10, TaskSort.ID_ASC))
                 .thenReturn(page);
 
-        Page<Task> result = userService.getExecutedTasks(1L, 0, 10, TaskSort.ID_ASC, new TaskFilter());
+        Page<Task> result = userService.getExecutedTasks(1L, 0, 10, TaskSort.ID_ASC);
 
         assertEquals(page, result);
-        verify(taskService).getExecutedTasksByUserId(1L, 0, 10, TaskSort.ID_ASC, new TaskFilter());
+        verify(taskService).getExecutedTasksByUserId(1L, 0, 10, TaskSort.ID_ASC);
     }
 
     @Test

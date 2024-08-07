@@ -5,7 +5,6 @@ import by.ustsinovich.taskmanagementsystem.dto.TaskDto;
 import by.ustsinovich.taskmanagementsystem.enums.CommentSort;
 import by.ustsinovich.taskmanagementsystem.enums.TaskSort;
 import by.ustsinovich.taskmanagementsystem.enums.TaskStatus;
-import by.ustsinovich.taskmanagementsystem.filter.CommentFilter;
 import by.ustsinovich.taskmanagementsystem.filter.TaskFilter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -64,7 +63,7 @@ public interface TaskController {
             @RequestParam(required = false, defaultValue = "0") @Min(0) Integer page,
             @RequestParam(required = false, defaultValue = "20") @Min(1) Integer size,
             @RequestParam(required = false, defaultValue = "ID_ASC") TaskSort sort,
-            @RequestParam(required = false) TaskFilter filter
+            TaskFilter filter
     );
 
     /**
@@ -126,7 +125,6 @@ public interface TaskController {
      * @param page    The page number
      * @param size    The page size
      * @param sort    The sort order
-     * @param filter The filter criteria
      * @return The comments
      */
     @GetMapping("/{id}/comments")
@@ -139,14 +137,12 @@ public interface TaskController {
     @Parameter(name = "page", description = "The page number")
     @Parameter(name = "size", description = "The page size")
     @Parameter(name = "sort", description = "The sort order")
-    @Parameter(name = "filter", description = "The filter criteria")
     @SecurityRequirement(name = "JWT")
     Page<CommentDto> retrieveTaskComments(
             @PathVariable @Min(1) Long id,
             @RequestParam(required = false, defaultValue = "0") @Min(0) Integer page,
             @RequestParam(required = false, defaultValue = "20") @Min(1) Integer size,
-            @RequestParam(required = false, defaultValue = "ID_ASC") CommentSort sort,
-            @RequestParam(required = false) CommentFilter filter
+            @RequestParam(required = false, defaultValue = "ID_ASC") CommentSort sort
     );
 
     /**

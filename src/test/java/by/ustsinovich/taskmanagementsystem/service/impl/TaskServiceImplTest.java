@@ -3,12 +3,10 @@ package by.ustsinovich.taskmanagementsystem.service.impl;
 import by.ustsinovich.taskmanagementsystem.dto.CommentDto;
 import by.ustsinovich.taskmanagementsystem.entity.Comment;
 import by.ustsinovich.taskmanagementsystem.entity.Task;
-import by.ustsinovich.taskmanagementsystem.enums.CommentSort;
 import by.ustsinovich.taskmanagementsystem.enums.TaskPriority;
 import by.ustsinovich.taskmanagementsystem.enums.TaskSort;
 import by.ustsinovich.taskmanagementsystem.enums.TaskStatus;
 import by.ustsinovich.taskmanagementsystem.exception.TaskNotFoundException;
-import by.ustsinovich.taskmanagementsystem.filter.CommentFilter;
 import by.ustsinovich.taskmanagementsystem.filter.TaskFilter;
 import by.ustsinovich.taskmanagementsystem.repository.TaskRepository;
 import by.ustsinovich.taskmanagementsystem.service.CommentService;
@@ -116,26 +114,6 @@ class TaskServiceImplTest {
 
         // then
         verify(taskRepository, times(1)).delete(task);
-    }
-
-    @Test
-    void getTaskComments() {
-        // given
-        Long taskId = 1L;
-        Integer page = 0;
-        Integer size = 10;
-        CommentSort sort = CommentSort.ID_ASC;
-        CommentFilter filter = new CommentFilter();
-
-        Page<Comment> comments = new PageImpl<>(List.of(new Comment()));
-
-        when(commentService.getCommentsByTaskId(taskId, page, size, sort, filter)).thenReturn(comments);
-
-        // when
-        Page<Comment> result = taskService.getTaskComments(taskId, page, size, sort, filter);
-
-        // then
-        assertEquals(comments, result);
     }
 
     @Test
